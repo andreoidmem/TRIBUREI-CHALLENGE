@@ -1,1 +1,1 @@
-Minha tentativa da Challenge para desenvolvedor Full Stack Tributei
+Minha tentativa incompleta da Challenge para desenvolvedor Full Stack Tributei

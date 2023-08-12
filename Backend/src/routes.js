@@ -12,9 +12,9 @@ routes.get('/deliveries', DeliveriesControllers.index)
 
 routes.delete('/deliveries', DeliveriesControllers.delete)
 
-app.get('/', (req,res) => {res.send("Olá Mundo")})
+app.get('/', (req, res) => { res.send("Olá Mundo") })
 
-app.listen(3001, () =>{console.log("Hello server")})
+app.listen(3001, () => { console.log("Hello server") })
 
 
 

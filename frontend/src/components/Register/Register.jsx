@@ -1,7 +1,6 @@
 import './Register.css';
 import { useState, useEffect } from "react";
 import MapPanel from '../Map/MapPanel';
-import api from '../../services/api';
 import Axios from "axios";
 
 function Register() {
@@ -21,7 +20,7 @@ function Register() {
     const [deliveries, setDeliveries] = useState([]);
     const [updatedDelivery, setUpdatedDelivery] = useState([]);
     const [loading, setLoading] = useState(true);
-    const googleApiKey = "AIzaSyDuQbIBj2-a2dxQTDKbR9OzF0ftTEewETY"
+    const googleApiKey = "SUA_CHAVE_API_AQUI"
 
     async function handleSearchAddress(e) {
 

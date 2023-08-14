@@ -12,6 +12,7 @@ function Register() {
     const [latitude, setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
     const [logradouro, setLogradouro] = useState('');
+    const [complemento, setComplemento] = useState('');
     const [numero, setNumero] = useState('');
     const [bairro, setBairro] = useState('');
     const [cidade, setCidade] = useState('');
@@ -30,7 +31,7 @@ function Register() {
             .then((response) => response.json())
             .then(data => {
                 console.log(data)
-                /* console.log(data.results[0])
+               /*  console.log(data.results[0])
                 console.log(data.results[0].address_components.length) */
 
                 for (var i = 0; i < data.results[0].address_components.length; i++) {
@@ -57,15 +58,20 @@ function Register() {
                     var googlePais = data.results[0].address_components[i].short_name
                     setPais(googlePais)
                 }
+                if( tipo[tipo.indexOf("postal_code")] == "postal_code"){
+                    var googleCEP = data.results[0].address_components[i].short_name
+                    setComplemento(googleCEP)
                 }
 
-             setLatitude(data.results[0].geometry.bounds.northeast.lat)
-             setLongitude(data.results[0].geometry.bounds.northeast.lng)
+                }
+
+             setLatitude(data.results[0].geometry.location.lat)
+             setLongitude(data.results[0].geometry.location.lng)
             })
             .catch((err) => {
                 console.log(err);
             })
-            /* console.log("OS DADOS: ", logradouro, numero, bairro, cidade, estado, pais, latitude, longitude) */
+            /*  console.log("OS DADOS: ", logradouro, numero, bairro, cidade, estado, pais, latitude, longitude) */
 
     }
 
@@ -73,22 +79,19 @@ function Register() {
 
         e.preventDefault();
 
-        const geolocalizacao = { latitude, longitude };
 
-        const endereco = {
+        Axios.post("http://localhost:3333/deliveries", {
+            nome,
+            peso,
             logradouro,
             bairro,
+            complemento,
             numero,
             cidade,
             estado,
             pais,
-            geolocalizacao
-        };
-
-        api.post('/deliveries/register', {
-            nome,
-            peso,
-            endereco
+            latitude,
+            longitude,
         })
             .then(response => {
                 console.log(response.data.deliveries)
@@ -103,12 +106,15 @@ function Register() {
             .catch(error => {
                 console.log(error)
             })
+
+            setBairro ("")
+            setLogradouro ("")
     }
 
     useEffect(() => {
-        api.get('/deliveries')
+        Axios.get("http://localhost:3333/getdeliveries")
             .then((response) => {
-                setDeliveries(response.data.deliveries)
+                setDeliveries(response.data)
                 setLoading(false)
                 console.log(response.data)
             })
@@ -116,7 +122,7 @@ function Register() {
 
     async function handleDeleteDelivery(id) {
         if (window.confirm("Tem certeza que deseja deletar?")) {
-            await api.delete(`/deliveries/${id}`)
+            await Axios.delete(`"http://localhost:3333/deldeliveries/${id}`)
                 .then(response => {
                     const updated = deliveries.filter((deliveries) => deliveries._id != id)
                     setDeliveries(updated)
@@ -131,7 +137,7 @@ function Register() {
 
     async function handleReset() {
         if (window.confirm("Tem certeza que deseja apagar todos os dados?")) {
-            await api.delete('/removeall')
+            await Axios.delete("http://localhost:3333/deldeliveries/")
                 .then(response => {
                     setDeliveries([])
                     console.log(response.data)
@@ -243,12 +249,12 @@ function Register() {
                                 {deliveries.map(delivery => (
                                     <tr key={delivery._id}>
                                         <td>{delivery.nome}</td>
-                                        <td>{delivery.endereco.logradouro}</td>
-                                        <td>{delivery.endereco.cidade}</td>
-                                        <td>{delivery.endereco.pais}</td>
+                                        <td>{delivery.logradouro}</td>
+                                        <td>{delivery.cidade}</td>
+                                        <td>{delivery.pais}</td>
                                         <td>{delivery.peso}</td>
-                                        <td>{delivery.endereco.geolocalizacao.latitude}</td>
-                                        <td>{delivery.endereco.geolocalizacao.longitude}</td>
+                                        <td>{delivery.latitude}</td>
+                                        <td>{delivery.longitude}</td>
                                         <td><button id="btn_delete_delivery" onClick={(e) => { handleDeleteDelivery(delivery._id) }}>Deletar</button></td>
                                     </tr>
                                 ))}

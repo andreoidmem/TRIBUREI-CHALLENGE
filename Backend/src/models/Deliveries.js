@@ -6,6 +6,7 @@ class Deliveries extends Model {
       nome: DataTypes.STRING,
       peso: DataTypes.NUMBER,
       logradouro: DataTypes.STRING,
+      numero: DataTypes.STRING,
       bairro: DataTypes.STRING,
       complemento: DataTypes.STRING,
       cidade: DataTypes.STRING,
@@ -14,6 +15,7 @@ class Deliveries extends Model {
       latitude: DataTypes.NUMBER,
       longitude: DataTypes.NUMBER,
     }, {
+      timestamps: false,
       sequelize: connection
     })
   }

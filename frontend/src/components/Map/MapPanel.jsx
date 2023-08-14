@@ -13,7 +13,7 @@ const MapPanel = ({deliveries}) => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             {deliveries.map(delivery => (
-                <Marker key={delivery._id} position={[delivery.endereco.geolocalizacao.latitude, delivery.endereco.geolocalizacao.longitude]}>
+                <Marker key={delivery._id} position={[delivery.latitude, delivery.longitude]}>
                     <Popup>
                         {delivery.nome}
                         <br/>

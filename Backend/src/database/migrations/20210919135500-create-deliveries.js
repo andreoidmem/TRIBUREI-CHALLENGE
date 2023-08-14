@@ -17,7 +17,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-
       logradouro: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -27,7 +26,6 @@ module.exports = {
       },
       bairro: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       complemento: {
         type: Sequelize.STRING,

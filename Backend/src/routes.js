@@ -4,17 +4,13 @@ const DeliveriesControllers = require('./controllers/DeliveriesControllers')
 
 const routes = express.Router();
 
-const app = express();
 
-routes.post('/deliveries', DeliveriesControllers.store)
+routes.post('/deliveries', DeliveriesControllers.STORE)
 
-routes.get('/deliveries', DeliveriesControllers.index)
+routes.get('/getdeliveries', DeliveriesControllers.INDEX)
 
-routes.delete('/deliveries', DeliveriesControllers.delete)
+routes.delete('/deldeliveries', DeliveriesControllers.NUKE)
 
-app.get('/', (req, res) => { res.send("Olá Mundo") })
-
-app.listen(3001, () => { console.log("Hello server") })
 
 
 

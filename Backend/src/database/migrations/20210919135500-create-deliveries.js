@@ -44,10 +44,10 @@ module.exports = {
         type: Sequelize.STRING,
       },
       latitude: {
-        type: Sequelize.NUMERIC,
+        type: Sequelize.NUMERIC(10,6),
       },
       longitude: {
-        type: Sequelize.NUMERIC,
+        type: Sequelize.NUMERIC(10,6),
       },
 
     });

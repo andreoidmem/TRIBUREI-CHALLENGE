@@ -2,13 +2,13 @@ const Deliveries = require('../models/Deliveries')
 
 module.exports = {
 
-  async GET(request, response) {
+  async INDEX(request, response) {
     const deliveries = await Deliveries.findAll();
 
     return response.json(deliveries)
   },
 
-  async POST(request, response) {
+  async STORE(request, response) {
     const {
       nome,
       peso,
@@ -42,7 +42,7 @@ module.exports = {
     return response.json(deliveries)
   },
 
-  async DELETE(request, response) {
+  async NUKE(request, response) {
 
     await Deliveries.destroy({
       where: {},
